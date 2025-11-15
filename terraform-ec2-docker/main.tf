@@ -32,8 +32,8 @@ resource "aws_security_group" "web_ssh" {
   # Regra de entrada (Ingress) para HTTP
   ingress {
     description = "HTTP from anywhere"
-    from_port   = 80
-    to_port     = 80
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -92,8 +92,8 @@ resource "aws_instance" "docker_host" {
               # Permite que o usuário padrão 'ubuntu' use o Docker sem sudo
               usermod -aG docker ubuntu
 
-              # Inicia um container Nginx na porta 80 para testarmos o acesso web imediatamente
-              docker run -d --name servidor-web -p 80:80 nginx:latest
+              # Inicia um container de boas-vindas do Docker para verificar se a instalação foi bem-sucedida
+              docker run -d -p 8080:80 docker/welcome-to-docker
               EOF
 
   tags = {
